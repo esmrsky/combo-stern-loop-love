@@ -156,41 +156,63 @@ function initGlobalNavigation() {
 // ============================================================
 // TAB 1: THIRST - 7 STAGES ACCORDION
 // ============================================================
+let currentStageIndex = 0;
+
 function initStages() {
-  const headers = document.querySelectorAll(".stage-header");
+  const slides = document.querySelectorAll(".stage-slide");
+  const prevBtn = document.getElementById("stage-btn-prev");
+  const nextBtn = document.getElementById("stage-btn-next");
+  const progressFill = document.getElementById("stage-progress-fill");
   
-  headers.forEach(header => {
-    header.addEventListener("click", () => {
-      const card = header.parentElement;
-      const body = card.querySelector(".stage-body");
-      const isOpen = card.classList.contains("open");
-      
-      // Close other stages (optional, but clean)
-      document.querySelectorAll(".stage-card").forEach(c => {
-        if (c !== card && c.classList.contains("open")) {
-          c.classList.remove("open");
-          c.querySelector(".stage-body").style.maxHeight = "0";
-          c.querySelector(".stage-header").setAttribute("aria-expanded", "false");
-        }
-      });
-      
-      if (isOpen) {
-        card.classList.remove("open");
-        body.style.maxHeight = "0";
-        header.setAttribute("aria-expanded", "false");
-      } else {
-        card.classList.add("open");
-        body.style.maxHeight = `${body.scrollHeight}px`;
-        header.setAttribute("aria-expanded", "true");
+  if (slides.length === 0) return;
+  
+  function showStageSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+      if (i === index) {
+        slide.classList.add("active");
       }
     });
-  });
-  
-  // Expand first stage by default
-  const firstHeader = headers[0];
-  if (firstHeader) {
-    firstHeader.dispatchEvent(new Event("click"));
+    
+    // Update buttons
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) {
+      if (index === slides.length - 1) {
+        nextBtn.innerText = "Restart Tour";
+      } else {
+        nextBtn.innerText = "Next Stage";
+      }
+    }
+    
+    // Update progress bar
+    if (progressFill) {
+      const percent = ((index + 1) / slides.length) * 100;
+      progressFill.style.width = `${percent}%`;
+    }
   }
+  
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentStageIndex > 0) {
+        currentStageIndex--;
+        showStageSlide(currentStageIndex);
+      }
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentStageIndex < slides.length - 1) {
+        currentStageIndex++;
+      } else {
+        currentStageIndex = 0;
+      }
+      showStageSlide(currentStageIndex);
+    });
+  }
+  
+  // Initialize
+  showStageSlide(currentStageIndex);
 }
 
 // ============================================================
@@ -226,7 +248,7 @@ function initAxisMap() {
 }
 
 // ============================================================
-// TAB 2: LEAKS - BROKEN CISTERN DIAGNOSTIC (LEAK FINDER)
+// TAB 2: LEAKS - BROKEN CISTERN DIAGNOSTIC (LEAK FINDER WIZARD)
 // ============================================================
 const DIAG_STATE = {
   surface: [],
@@ -234,12 +256,63 @@ const DIAG_STATE = {
   promise: null
 };
 
+let currentDiagStep = 0;
+
 function initLeakFinder() {
-  const choices = document.querySelectorAll(".choice-btn");
-  const submitBtn = document.getElementById("diag-submit");
+  const choices = document.querySelectorAll(".diagnostic-form .choice-btn");
+  const prevBtn = document.getElementById("diag-btn-prev");
+  const nextBtn = document.getElementById("diag-btn-next");
+  const slides = document.querySelectorAll(".diagnostic-form .diag-slide");
+  const dots = document.querySelectorAll(".diagnostic-form .diag-dot");
   const resetBtn = document.getElementById("diag-reset");
   
   if (choices.length === 0) return;
+  
+  function showDiagStep(step) {
+    currentDiagStep = step;
+    
+    // Toggle active slide
+    slides.forEach((slide, idx) => {
+      slide.classList.remove("active");
+      if (idx === step) {
+        slide.classList.add("active");
+      }
+    });
+    
+    // Toggle dots
+    dots.forEach((dot, idx) => {
+      dot.classList.remove("active");
+      if (idx === step) {
+        dot.classList.add("active");
+      }
+    });
+    
+    // Update navigation buttons
+    if (prevBtn) prevBtn.disabled = step === 0;
+    
+    updateNextButtonState();
+  }
+  
+  function updateNextButtonState() {
+    if (!nextBtn) return;
+    
+    let isStepValid = false;
+    if (currentDiagStep === 0) {
+      isStepValid = DIAG_STATE.surface.length > 0;
+    } else if (currentDiagStep === 1) {
+      isStepValid = DIAG_STATE.cue !== null;
+    } else if (currentDiagStep === 2) {
+      isStepValid = DIAG_STATE.promise !== null;
+    }
+    
+    nextBtn.disabled = !isStepValid;
+    
+    if (currentDiagStep === 2) {
+      nextBtn.innerText = "Submit";
+    } else {
+      nextBtn.innerText = "Next";
+    }
+  }
   
   choices.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -247,7 +320,6 @@ function initLeakFinder() {
       const choiceId = btn.dataset.choice;
       
       if (type === "surface") {
-        // Multi-select up to 3 choices
         const idx = DIAG_STATE.surface.indexOf(choiceId);
         if (idx > -1) {
           DIAG_STATE.surface.splice(idx, 1);
@@ -262,9 +334,10 @@ function initLeakFinder() {
           btn.classList.add("selected");
           btn.setAttribute("aria-pressed", "true");
         }
+        updateNextButtonState();
       } else {
-        // Single select for cue and promise
-        document.querySelectorAll(`.choice-btn[data-type="${type}"]`).forEach(b => {
+        // Single select
+        document.querySelectorAll(`.diagnostic-form .choice-btn[data-type="${type}"]`).forEach(b => {
           b.classList.remove("selected");
           b.removeAttribute("aria-pressed");
         });
@@ -272,15 +345,42 @@ function initLeakFinder() {
         DIAG_STATE[type] = choiceId;
         btn.classList.add("selected");
         btn.setAttribute("aria-pressed", "true");
+        updateNextButtonState();
+        
+        // Auto-advance to next slide after selection with a 400ms delay
+        setTimeout(() => {
+          if (currentDiagStep < 2) {
+            showDiagStep(currentDiagStep + 1);
+          }
+        }, 400);
       }
-      
-      // Toggle submit button state
-      submitBtn.disabled = !(DIAG_STATE.surface.length > 0 && DIAG_STATE.cue && DIAG_STATE.promise);
     });
   });
   
-  submitBtn.addEventListener("click", calculateDiagnosticResults);
-  resetBtn.addEventListener("click", resetDiagnosticForm);
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentDiagStep > 0) {
+        showDiagStep(currentDiagStep - 1);
+      }
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentDiagStep < 2) {
+        showDiagStep(currentDiagStep + 1);
+      } else {
+        calculateDiagnosticResults();
+      }
+    });
+  }
+  
+  if (resetBtn) {
+    resetBtn.addEventListener("click", resetDiagnosticForm);
+  }
+  
+  // Set initial
+  showDiagStep(0);
 }
 
 function calculateDiagnosticResults() {
@@ -367,14 +467,35 @@ function resetDiagnosticForm() {
   DIAG_STATE.cue = null;
   DIAG_STATE.promise = null;
   
-  document.querySelectorAll(".choice-btn").forEach(btn => {
+  document.querySelectorAll(".diagnostic-form .choice-btn").forEach(btn => {
     btn.classList.remove("selected");
     btn.removeAttribute("aria-pressed");
   });
   
-  document.getElementById("diag-submit").disabled = true;
   document.getElementById("diag-result-content").style.display = "none";
   document.getElementById("diag-result-empty").style.display = "block";
+  
+  // Reset wizard steps
+  const slides = document.querySelectorAll(".diagnostic-form .diag-slide");
+  const dots = document.querySelectorAll(".diagnostic-form .diag-dot");
+  
+  currentDiagStep = 0;
+  slides.forEach((slide, idx) => {
+    slide.classList.remove("active");
+    if (idx === 0) slide.classList.add("active");
+  });
+  dots.forEach((dot, idx) => {
+    dot.classList.remove("active");
+    if (idx === 0) dot.classList.add("active");
+  });
+  
+  const prevBtn = document.getElementById("diag-btn-prev");
+  const nextBtn = document.getElementById("diag-btn-next");
+  if (prevBtn) prevBtn.disabled = true;
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.innerText = "Next";
+  }
   
   showToast("Diagnostic reset", "info");
 }
@@ -741,13 +862,56 @@ function drawSimulatorChart() {
     simCtx.stroke();
   }
   
-  // plot lines
-  function drawLine(key, color, dashed = false) {
+  // Create gradient fills
+  const willpowerColor = simParadigm === "works" ? "#d66853" : "#4cdbb3"; // var(--rust) or var(--jade)
+  const stressColor = "#f09484"; // var(--rust-soft)
+  const shameColor = "#ab7fd1"; // var(--purple)
+  
+  const wGrad = simCtx.createLinearGradient(0, 0, 0, h);
+  if (simParadigm === "works") {
+    wGrad.addColorStop(0, "rgba(214, 104, 83, 0.18)");
+    wGrad.addColorStop(1, "rgba(214, 104, 83, 0)");
+  } else {
+    wGrad.addColorStop(0, "rgba(76, 219, 179, 0.18)");
+    wGrad.addColorStop(1, "rgba(76, 219, 179, 0)");
+  }
+  
+  const sGrad = simCtx.createLinearGradient(0, 0, 0, h);
+  sGrad.addColorStop(0, "rgba(240, 148, 132, 0.08)");
+  sGrad.addColorStop(1, "rgba(240, 148, 132, 0)");
+  
+  const shGrad = simCtx.createLinearGradient(0, 0, 0, h);
+  shGrad.addColorStop(0, "rgba(171, 127, 209, 0.05)");
+  shGrad.addColorStop(1, "rgba(171, 127, 209, 0)");
+  
+  // Curve rendering function
+  function drawTelemetryCurve(key, color, isDashed = false, fillGradient = null) {
+    // 1. Draw gradient fill first
+    if (fillGradient) {
+      simCtx.beginPath();
+      simDataPoints.forEach((pt, idx) => {
+        const val = pt[key];
+        const x = idx * dx;
+        const y = h - val * dy;
+        if (idx === 0) simCtx.moveTo(x, y);
+        else simCtx.lineTo(x, y);
+      });
+      simCtx.lineTo((simDataPoints.length - 1) * dx, h);
+      simCtx.lineTo(0, h);
+      simCtx.closePath();
+      simCtx.fillStyle = fillGradient;
+      simCtx.fill();
+    }
+    
+    // 2. Draw curve line with glow shadow
     simCtx.beginPath();
-    simCtx.lineWidth = 2;
+    simCtx.lineWidth = 2.5;
     simCtx.strokeStyle = color;
-    if (dashed) simCtx.setLineDash([4, 4]);
+    if (isDashed) simCtx.setLineDash([4, 4]);
     else simCtx.setLineDash([]);
+    
+    simCtx.shadowBlur = 10;
+    simCtx.shadowColor = color;
     
     simDataPoints.forEach((pt, idx) => {
       const val = pt[key];
@@ -757,69 +921,251 @@ function drawSimulatorChart() {
       else simCtx.lineTo(x, y);
     });
     simCtx.stroke();
+    
+    // Reset shadow
+    simCtx.shadowBlur = 0;
   }
   
-  drawLine("w", simParadigm === "works" ? "var(--rust)" : "var(--jade)");
-  drawLine("s", "var(--rust-soft)", true);
-  drawLine("sh", "var(--purple)");
+  // Draw order (Shame background, then Stress dashed, then main Willpower solid)
+  drawTelemetryCurve("sh", shameColor, false, shGrad);
+  drawTelemetryCurve("s", stressColor, true, sGrad);
+  drawTelemetryCurve("w", willpowerColor, false, wGrad);
 }
 
 // ============================================================
 // TAB 3: MECHANICS - CATHEXIS RELATIONAL DIAGNOSTIC (FAKE LOVE)
 // ============================================================
+let currentCathStep = 0;
 const CATH_ANSWERS = [null, null, null];
 
 function initCathexisDiagnostic() {
-  const options = document.querySelectorAll(".cath-option-btn");
+  const options = document.querySelectorAll("#cathexis-shell .cath-option-btn");
+  const prevBtn = document.getElementById("cath-btn-prev");
+  const nextBtn = document.getElementById("cath-btn-next");
+  const slides = document.querySelectorAll("#cathexis-shell .cath-slide");
+  const dots = document.querySelectorAll("#cathexis-shell .diag-dot");
+  const resetBtn = document.getElementById("cath-btn-reset");
+  
   if (options.length === 0) return;
+  
+  function showCathStep(step) {
+    currentCathStep = step;
+    
+    slides.forEach((slide, idx) => {
+      slide.style.display = idx === step ? "block" : "none";
+      slide.classList.toggle("active", idx === step);
+    });
+    
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle("active", idx === step);
+    });
+    
+    if (prevBtn) prevBtn.disabled = step === 0;
+    
+    updateNextButtonState();
+  }
+  
+  function updateNextButtonState() {
+    if (!nextBtn) return;
+    const hasAnswer = CATH_ANSWERS[currentCathStep] !== null;
+    nextBtn.disabled = !hasAnswer;
+    
+    if (currentCathStep === 2) {
+      nextBtn.innerText = "Evaluate";
+    } else {
+      nextBtn.innerText = "Next";
+    }
+  }
   
   options.forEach(btn => {
     btn.addEventListener("click", () => {
-      const questionIndex = parseInt(btn.parentNode.parentNode.dataset.q);
-      const val = btn.dataset.val;
-      
-      // Toggle button selection
-      btn.parentNode.querySelectorAll(".cath-option-btn").forEach(b => {
+      // Toggle selection styling
+      btn.parentNode.parentNode.querySelectorAll(".cath-option-btn").forEach(b => {
         b.classList.remove("selected");
       });
       btn.classList.add("selected");
       
-      CATH_ANSWERS[questionIndex] = val;
-      calculateCathexisResult();
+      const val = btn.dataset.val;
+      CATH_ANSWERS[currentCathStep] = val;
+      updateNextButtonState();
+      
+      // Auto advance with 400ms delay
+      setTimeout(() => {
+        if (currentCathStep < 2) {
+          showCathStep(currentCathStep + 1);
+        }
+      }, 400);
     });
   });
+  
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentCathStep > 0) {
+        showCathStep(currentCathStep - 1);
+      }
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentCathStep < 2) {
+        showCathStep(currentCathStep + 1);
+      } else {
+        calculateCathexisResult();
+      }
+    });
+  }
+  
+  if (resetBtn) {
+    resetBtn.addEventListener("click", resetCathexisTest);
+  }
+  
+  showCathStep(0);
 }
 
 function calculateCathexisResult() {
   const [q0, q1, q2] = CATH_ANSWERS;
   const panel = document.getElementById("cath-result-panel");
+  const emptyPlaceholder = document.getElementById("cath-result-empty");
   const title = document.getElementById("cath-res-title");
   const text = document.getElementById("cath-res-text");
+  const sendBtn = document.getElementById("cath-btn-send-workbook");
   
   if (q0 === null || q1 === null || q2 === null) {
-    panel.style.display = "none";
+    if (panel) panel.style.display = "none";
+    if (emptyPlaceholder) emptyPlaceholder.style.display = "block";
     return;
   }
   
-  panel.style.display = "block";
+  if (emptyPlaceholder) emptyPlaceholder.style.display = "none";
+  if (panel) {
+    panel.style.display = "flex";
+    panel.style.flexDirection = "column";
+  }
   
   const isVerb = q0 === "verb";
   const isThem = q1 === "them";
   const isFree = q2 === "free";
   
+  let profileType = "";
+  
   if (isVerb && isThem && isFree) {
-    title.innerText = "Diagnosis: Healthy Relational Action (True Care)";
+    title.innerText = "True Care (Healthy Posture)";
     title.style.color = "var(--jade)";
-    text.innerHTML = `Your profile shows the markers of mature love. According to **M. Scott Peck** (*The Road Less Traveled*), love is not a feeling of dependency but an active extension of one's self for the purpose of nurturing another's growth. You decouple worth from performance and respect their separate boundaries.`;
+    text.innerHTML = `Your profile shows mature love. According to **M. Scott Peck** (*The Road Less Traveled*), love is an active choice to nurture another's separate growth. You do not borrow their validation to regulate your peace.`;
+    profileType = "true_care";
   } else if (!isVerb && !isThem && !isFree) {
-    title.innerText = "Diagnosis: Compulsive Cathexis (Extraction Loop)";
+    title.innerText = "Compulsive Cathexis (Extraction)";
     title.style.color = "var(--rust)";
-    text.innerHTML = `Your profile maps to a high-extraction loop. According to **Dorothy Tennov** (*Limerence*) and **Erich Fromm** (*The Art of Loving*), this is dependency masquerading as love. You are using the other person as an emotional stabilizer (regulation drug) or ego mirror, sacrificing their freedom or your truth to maintain connection safety.`;
+    text.innerHTML = `Your profile maps to a high-extraction loop. According to **Dorothy Tennov** (*Limerence*) and **Erich Fromm** (*The Art of Loving*), you are using the other as an emotional stabilizer, sacrificing their freedom for your comfort.`;
+    profileType = "cathexis";
   } else {
-    title.innerText = "Diagnosis: Mixed Attachment Striving";
+    title.innerText = "Mixed Attachment Striving";
     title.style.color = "var(--gold)";
-    text.innerHTML = `Your relationship exhibits conflicting patterns. While there is a desire for true care, elements of transactional debt or overcontrol (Worry/Rescue) are creeping in. **C.S. Lewis** (*The Four Loves*) warns that Gift-love can easily curdle into Need-love when we demand to remain needed, turning the relationship into a savior platform.`;
+    text.innerHTML = `Your relationship exhibits conflicting patterns. Gift-love is starting to curdle into Need-love. **C.S. Lewis** (*The Four Loves*) warns against demanding to remain needed, turning the other into your savior platform.`;
+    profileType = "mixed";
   }
+  
+  if (sendBtn) {
+    sendBtn.style.display = "inline-flex";
+    sendBtn.onclick = () => {
+      prefillWorkbookFromCathexis(profileType);
+    };
+  }
+  
+  showToast("Evaluation completed!", "success");
+  if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function prefillWorkbookFromCathexis(profileType) {
+  let cistern = "";
+  let counterfeit = "";
+  let loop = "";
+  let shame = "";
+  let grace = "";
+  
+  if (profileType === "cathexis") {
+    cistern = "Compulsive Cathexis (Extraction Loop)";
+    counterfeit = "Relational dependency / borrowing validation";
+    loop = "Feel empty or unsafe ➔ seek partner reassurance/pleasing ➔ temporary relief ➔ hypervigilance ➔ feel empty again";
+    shame = "If I am separate, I will be abandoned or exposed as unlovable.";
+    grace = "Secure attachment. Worth is pre-established. Give partner separate breathing space today without demands.";
+  } else if (profileType === "mixed") {
+    cistern = "Mixed Attachment Striving (Need-Love)";
+    counterfeit = "Worrying, fixing, saving the other to remain needed";
+    loop = "Feel anxious or insignificant ➔ assume savior/fixer role ➔ feel temporarily valuable ➔ burnout or resentment ➔ repeat";
+    shame = "If I am not needed, I have no value or purpose in this relationship.";
+    grace = "Gift-love sourced in grace. Support the other without trying to rescue them or control their choices.";
+  } else {
+    cistern = "Healthy Posture (True Care)";
+    counterfeit = "No active counterfeit loop identified";
+    loop = "Conscious commitment ➔ supporting separate growth ➔ mutual safety";
+    shame = "No heavy attachment shame Voice active.";
+    grace = "Continue walking in received worth, honoring boundaries, and choosing true care daily.";
+  }
+  
+  // Fill workbook form fields
+  document.getElementById("arch-in-cistern").value = cistern;
+  document.getElementById("arch-in-counterfeit").value = counterfeit;
+  document.getElementById("arch-in-habit").value = loop;
+  document.getElementById("arch-in-shame").value = shame;
+  document.getElementById("arch-in-grace").value = grace;
+  
+  // Trigger tab switch to Healing section
+  document.querySelector('.bottom-nav-btn[data-tab="healing"]').dispatchEvent(new Event("click"));
+  
+  // Scroll to Personal Architect section
+  setTimeout(() => {
+    const targetElement = document.getElementById("sec-workbook");
+    if (targetElement) {
+      const offset = 120;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: targetPosition, behavior: "smooth" });
+    }
+  }, 100);
+  
+  updateWorkbookBlueprint();
+  showToast("Cathexis diagnostic plan sent to Personal Architect!", "success");
+}
+
+function resetCathexisTest() {
+  CATH_ANSWERS.fill(null);
+  
+  document.querySelectorAll("#cathexis-shell .cath-option-btn").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+  
+  const panel = document.getElementById("cath-result-panel");
+  const emptyPlaceholder = document.getElementById("cath-result-empty");
+  const sendBtn = document.getElementById("cath-btn-send-workbook");
+  
+  if (panel) panel.style.display = "none";
+  if (emptyPlaceholder) emptyPlaceholder.style.display = "block";
+  if (sendBtn) sendBtn.style.display = "none";
+  
+  // Reset step
+  currentCathStep = 0;
+  const slides = document.querySelectorAll("#cathexis-shell .cath-slide");
+  const dots = document.querySelectorAll("#cathexis-shell .diag-dot");
+  
+  slides.forEach((slide, idx) => {
+    slide.style.display = idx === 0 ? "block" : "none";
+    slide.classList.toggle("active", idx === 0);
+  });
+  
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle("active", idx === 0);
+  });
+  
+  const prevBtn = document.getElementById("cath-btn-prev");
+  const nextBtn = document.getElementById("cath-btn-next");
+  if (prevBtn) prevBtn.disabled = true;
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.innerText = "Next";
+  }
+  
+  showToast("Cathexis test reset", "info");
 }
 
 // ============================================================

@@ -77,130 +77,104 @@
             <p>Understand the mechanics of modern craving: how dopamine tracks surprise, how needs fragment, and how the treadmill keeps you returning. Expand any stage to read the deep dive.</p>
           </div>
           
-          <div class="stage-list">
+          <div class="stage-slider-wrap">
+            <div class="stage-progress-bar-wrap">
+              <div class="stage-progress-bar-fill" id="stage-progress-fill"></div>
+            </div>
             
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">01</span>
-                  <span class="stage-title">The Hunt: Looking vs Finding</span>
+            <div class="stage-slides-container">
+              <!-- Slide 1 -->
+              <div class="stage-slide active" data-index="0">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 01</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">1 / 7</span>
                 </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>You go hunting for new music or notifications. Twenty minutes in, you've found three good items — and you're still scrolling. The dopamine system tracks <em>surprise</em>, not reward: it spikes for a cue that might pay off, and hardest when the odds are uncertain. The seeking is the point.</p>
-                  <div class="scripture-panel">
-                    <p>“All things are full of weariness; a man cannot utter it; the eye is not satisfied with seeing, nor the ear filled with hearing.”</p>
-                    <cite>Ecclesiastes 1:8</cite>
-                  </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Hunt: Looking vs Finding</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">You go hunting for new music or notifications. Twenty minutes in, you've found three good items — and you're still scrolling. The dopamine system tracks <em>surprise</em>, not reward: it spikes for a cue that might pay off, and hardest when the odds are uncertain. The seeking is the point.</p>
+                <div class="scripture-panel" style="background:var(--bg-soft); border-left:2px solid var(--gold); padding:12px 16px; border-radius:var(--radius-sm);">
+                  <p style="font-style:italic; font-family:var(--font-serif); font-size:var(--step--1); margin-bottom:4px;">“All things are full of weariness; a man cannot utter it; the eye is not satisfied with seeing, nor the ear filled with hearing.”</p>
+                  <cite style="font-family:var(--font-mono); font-size:var(--step--2); color:var(--text-faint); font-style:normal; text-transform:uppercase;">Ecclesiastes 1:8</cite>
+                </div>
+              </div>
+              
+              <!-- Slide 2 -->
+              <div class="stage-slide" data-index="1">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 02</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">2 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Design: Slots & Real Fillers</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">Inside you there are slots — recurring, legitimate needs. They don't go away when ignored; they get louder. If a proper source doesn't fill them, something cheap will move in to quiet the alarm. The slots aren't a problem to be solved; they are the original design. <strong>You were built to be filled.</strong></p>
+                <div class="scripture-panel" style="background:var(--bg-soft); border-left:2px solid var(--gold); padding:12px 16px; border-radius:var(--radius-sm);">
+                  <p style="font-style:italic; font-family:var(--font-serif); font-size:var(--step--1); margin-bottom:4px;">“The Lord God took the man and put him in the garden of Eden to work it and keep it.”</p>
+                  <cite style="font-family:var(--font-mono); font-size:var(--step--2); color:var(--text-faint); font-style:normal; text-transform:uppercase;">Genesis 2:15 — The original design of rightly ordered dependence.</cite>
+                </div>
+              </div>
+              
+              <!-- Slide 3 -->
+              <div class="stage-slide" data-index="2">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 03</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">3 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Split: The Separation of Needs</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">The core structural crisis of modernity is the splitting of needs. In the ancient design, work, worship, community, and food occurred in the same physical space. Today, they are fragmented. We go to the office for money, the gym for health, the internet for connection, and the temple for spirit.</p>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">Each fractured slot has been handed over to a separate commercial vendor. And the vendors discovered the engine of modern commerce: <strong>a half-met need is a returning customer.</strong> They sell us quick, immediate relief that never quite restores, ensuring we remain dependent on the cycle.</p>
+              </div>
+              
+              <!-- Slide 4 -->
+              <div class="stage-slide" data-index="3">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 04</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">4 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Market: Striving as Commodity</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">Because our worth is no longer given as a baseline standing, we must earn it. We have turned our identity into a productivity metrics project. We track our sleep, our workouts, our streaks, and our career goals, viewing ourselves not as people, but as corporations. Striving has become the air we breathe.</p>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">This moral/behavioral striving operates identically to the ancient law: it demands flawless obedience but provides no internal resource to complete it. The treadmill cannot satisfy because its targets are constantly moving.</p>
+              </div>
+              
+              <!-- Slide 5 -->
+              <div class="stage-slide" data-index="4">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 05</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">5 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Counterfeit: Salt Water for Thirst</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">If you drink salt water when thirsty, it works for a minute—then it dehydrates you, making you thirstier than before. The counterfeit source operates the exact same way. It is <strong>salt water for the soul.</strong></p>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">The counterfeit loops precisely because it *almost* satisfies. If it failed completely, you would walk away. Because it gives a brief flash of relief (a temporary dampening of the anxiety alarm), the brain registers the routine as successful, driving you back to it the next time the stress alarm sounds.</p>
+              </div>
+              
+              <!-- Slide 6 -->
+              <div class="stage-slide" data-index="5">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 06</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">6 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Dependency: Closed vs. Received Systems</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">This leaves us trapped in a closed system: we are both the builder and the occupant, trying to build the well we drink from. This self-sourcing is the essence of self-reliance. It is exhausting and unstable.</p>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">The only exit is an <strong>open system</strong>: receiving water from an external, self-sustaining spring that does not run dry and requires no shovel to build. This received status shifts us from the anxiety of *generating* our worth to the security of *reflecting* it.</p>
+              </div>
+              
+              <!-- Slide 7 -->
+              <div class="stage-slide" data-index="6">
+                <div class="stage-top-meta">
+                  <span class="stage-num-badge">Stage 07</span>
+                  <span class="stage-counter-txt" style="font-family:var(--font-mono); font-size:var(--step--1); color:var(--text-muted);">7 / 7</span>
+                </div>
+                <h3 style="font-size:var(--step-1); margin-bottom:12px; font-family:var(--font-serif);">The Way Back: Expulsive Affection</h3>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">The way back is not a better strategy or a cleaner productivity block. You cannot simply delete the old routine and leave a vacuum—the heart abhors a vacuum. It must be <strong>crowded out by the expulsive power of a new affection.</strong></p>
+                <p style="color:var(--text-muted); font-size:var(--step-0); margin-bottom:16px;">We do not empty the well; we find a better one and drink. The secure standing given in grace makes the counterfeits look dull by comparison, naturally dissolving the tension of the loop.</p>
+                <div class="scripture-panel" style="background:var(--bg-soft); border-left:2px solid var(--gold); padding:12px 16px; border-radius:var(--radius-sm);">
+                  <p style="font-style:italic; font-family:var(--font-serif); font-size:var(--step--1); margin-bottom:4px;">“Whoever drinks of the water that I will give him will never be thirsty again. The water that I will give him will become in him a spring of water welling up to eternal life.”</p>
+                  <cite style="font-family:var(--font-mono); font-size:var(--step--2); color:var(--text-faint); font-style:normal; text-transform:uppercase;">John 4:14</cite>
                 </div>
               </div>
             </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">02</span>
-                  <span class="stage-title">The Design: Slots & Real Fillers</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>Inside you there are slots — recurring, legitimate needs. They don't go away when ignored; they get louder. If a proper source doesn't fill them, something cheap will move in to quiet the alarm. The slots aren't a problem to be solved; they are the original design. <strong>You were built to be filled.</strong></p>
-                  <div class="scripture-panel">
-                    <p>“The Lord God took the man and put him in the garden of Eden to work it and keep it.”</p>
-                    <cite>Genesis 2:15 — The original design of rightly ordered dependence.</cite>
-                  </div>
-                </div>
-              </div>
+            
+            <div class="stage-slider-controls">
+              <button class="btn" id="stage-btn-prev" disabled>Previous</button>
+              <button class="btn primary" id="stage-btn-next">Next Stage</button>
             </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">03</span>
-                  <span class="stage-title">The Split: The Separation of Needs</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>The core structural crisis of modernity is the splitting of needs. In the ancient design, work, worship, community, and food occurred in the same physical space. Today, they are fragmented. We go to the office for money, the gym for health, the internet for connection, and the temple for spirit.</p>
-                  <p>Each fractured slot has been handed over to a separate commercial vendor. And the vendors discovered the engine of modern commerce: <strong>a half-met need is a returning customer.</strong> They sell us quick, immediate relief that never quite restores, ensuring we remain dependent on the cycle.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">04</span>
-                  <span class="stage-title">The Market: Striving as Commodity</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>Because our worth is no longer given as a baseline standing, we must earn it. We have turned our identity into a productivity metrics project. We track our sleep, our workouts, our streaks, and our career goals, viewing ourselves not as people, but as corporations. Striving has become the air we breathe.</p>
-                  <p>This moral/behavioral striving operates identically to the ancient law: it demands flawless obedience but provides no internal resource to complete it. The treadmill cannot satisfy because its targets are constantly moving.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">05</span>
-                  <span class="stage-title">The Counterfeit: Salt Water for Thirst</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>If you drink salt water when thirsty, it works for a minute—then it dehydrates you, making you thirstier than before. The counterfeit source operates the exact same way. It is <strong>salt water for the soul.</strong></p>
-                  <p>The counterfeit loops precisely because it *almost* satisfies. If it failed completely, you would walk away. Because it gives a brief flash of relief (a temporary dampening of the anxiety alarm), the brain registers the routine as successful, driving you back to it the next time the stress alarm sounds.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">06</span>
-                  <span class="stage-title">The Dependency: Closed vs. Received Systems</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>This leaves us trapped in a closed system: we are both the builder and the occupant, trying to build the well we drink from. This self-sourcing is the essence of self-reliance. It is exhausting and unstable.</p>
-                  <p>The only exit is an <strong>open system</strong>: receiving water from an external, self-sustaining spring that does not run dry and requires no shovel to build. This received status shifts us from the anxiety of *generating* our worth to the security of *reflecting* it.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="stage-card">
-              <button class="stage-header" aria-expanded="false">
-                <div class="stage-title-group">
-                  <span class="stage-num">07</span>
-                  <span class="stage-title">The Way Back: Expulsive Affection</span>
-                </div>
-                <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <div class="stage-body">
-                <div class="stage-body-inner">
-                  <p>The way back is not a better strategy or a cleaner productivity block. You cannot simply delete the old routine and leave a vacuum—the heart abhors a vacuum. It must be <strong>crowded out by the expulsive power of a new affection.</strong></p>
-                  <p>We do not empty the well; we find a better one and drink. The secure standing given in grace makes the counterfeits look dull by comparison, naturally dissolving the tension of the loop.</p>
-                  <div class="scripture-panel">
-                    <p>“Whoever drinks of the water that I will give him will never be thirsty again. The water that I will give him will become in him a spring of water welling up to eternal life.”</p>
-                    <cite>John 4:14</cite>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -410,7 +384,7 @@
           <div class="diagnostic-shell">
             
             <div class="diagnostic-form">
-              <div class="diag-step" data-step="0">
+              <div class="diag-slide active" data-step="0">
                 <div class="step-label"><span>01</span> Choose your surface behaviors (Select up to 3)</div>
                 <div class="choice-grid">
                   <button class="choice-btn" data-type="surface" data-choice="please">
@@ -440,7 +414,7 @@
                 </div>
               </div>
 
-              <div class="diag-step" data-step="1">
+              <div class="diag-slide" data-step="1">
                 <div class="step-label"><span>02</span> What is the primary trigger / cue? (Select 1)</div>
                 <div class="choice-grid">
                   <button class="choice-btn" data-type="cue" data-choice="cue-reject">
@@ -466,7 +440,7 @@
                 </div>
               </div>
 
-              <div class="diag-step" data-step="2">
+              <div class="diag-slide" data-step="2">
                 <div class="step-label"><span>03</span> What does the counterfeit promise? (Select 1)</div>
                 <div class="choice-grid">
                   <button class="choice-btn" data-type="promise" data-choice="prom-loved">
@@ -492,9 +466,14 @@
                 </div>
               </div>
               
-              <div style="display:flex; gap:12px;">
-                <button class="btn primary" id="diag-submit" disabled style="flex:1;">Submit Diagnostic</button>
-                <button class="btn" id="diag-reset">Reset</button>
+              <div class="diag-wizard-nav">
+                <button class="btn" id="diag-btn-prev" disabled>Back</button>
+                <div class="diag-progress-dots">
+                  <span class="diag-dot active" data-step="0"></span>
+                  <span class="diag-dot" data-step="1"></span>
+                  <span class="diag-dot" data-step="2"></span>
+                </div>
+                <button class="btn primary" id="diag-btn-next" disabled>Next</button>
               </div>
             </div>
 
@@ -563,6 +542,7 @@
                 
                 <div class="diag-result-actions">
                   <button class="btn gold" id="diag-btn-send-workbook">Send to Workbook</button>
+                  <button class="btn" id="diag-reset">Reset Diagnostic</button>
                 </div>
               </div>
             </div>
@@ -709,16 +689,46 @@
               
               <div class="sim-legend">
                 <div class="sim-legend-item">
-                  <div class="sim-color-dot dopamine"></div>
+                  <div class="sim-color-dot dopamine" style="background-color: var(--gold);"></div>
                   <span>Willpower</span>
                 </div>
                 <div class="sim-legend-item">
-                  <div class="sim-color-dot anxiety" style="border:1px dashed var(--rust)"></div>
+                  <div class="sim-color-dot anxiety" style="border: 1px dashed var(--rust); background-color: transparent;"></div>
                   <span>Stress</span>
                 </div>
                 <div class="sim-legend-item">
-                  <div class="sim-color-dot" style="background-color:var(--purple)"></div>
+                  <div class="sim-color-dot" style="background-color: var(--purple);"></div>
                   <span>Shame / Feedback</span>
+                </div>
+              </div>
+
+              <!-- Telemetry Counters Grid -->
+              <div class="sim-telemetry-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+                <div class="telemetry-card" style="background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 4px;">
+                  <span style="font-family: var(--font-mono); font-size: var(--step--2); color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em;">Willpower</span>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <span id="sim-val-willpower" style="font-size: var(--step-2); font-weight: bold; font-family: var(--font-mono); color: var(--text);">85</span>
+                    <span style="font-size: var(--step--2); color: var(--text-faint);">/ 100</span>
+                  </div>
+                  <div class="signal-track" style="height: 6px; margin-top: 4px; overflow: hidden;"><div class="signal-fill" id="sim-bar-willpower" style="background-color: var(--gold); width: 85%;"></div></div>
+                </div>
+                
+                <div class="telemetry-card" style="background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 4px;">
+                  <span style="font-family: var(--font-mono); font-size: var(--step--2); color: var(--rust-soft); text-transform: uppercase; letter-spacing: 0.05em;">Stress</span>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <span id="sim-val-stress" style="font-size: var(--step-2); font-weight: bold; font-family: var(--font-mono); color: var(--rust-soft);">30</span>
+                    <span style="font-size: var(--step--2); color: var(--text-faint);">/ 100</span>
+                  </div>
+                  <div class="signal-track" style="height: 6px; margin-top: 4px; overflow: hidden;"><div class="signal-fill" id="sim-bar-stress" style="background-color: var(--rust-soft); width: 30%;"></div></div>
+                </div>
+                
+                <div class="telemetry-card" style="background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 4px;">
+                  <span style="font-family: var(--font-mono); font-size: var(--step--2); color: var(--purple-soft); text-transform: uppercase; letter-spacing: 0.05em;">Shame / Feedback</span>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <span id="sim-val-shame" style="font-size: var(--step-2); font-weight: bold; font-family: var(--font-mono); color: var(--purple-soft);">10</span>
+                    <span style="font-size: var(--step--2); color: var(--text-faint);">/ 100</span>
+                  </div>
+                  <div class="signal-track" style="height: 6px; margin-top: 4px; overflow: hidden;"><div class="signal-fill" id="sim-bar-shame" style="background-color: var(--purple-soft); width: 10%;"></div></div>
                 </div>
               </div>
             </div>
@@ -810,39 +820,85 @@
             <p>According to Peck, Lewis, and Fromm, we often mistake emotional attachment (cathexis) and extraction needs for true love. Complete the three questions below to evaluate your posture.</p>
           </div>
           
-          <div class="cathexis-shell">
-            <div class="cath-steps-grid">
-              
-              <div class="cath-step-card" data-q="0">
-                <h4>01. Action vs. Sensation</h4>
-                <div class="cath-options">
-                  <button class="cath-option-btn" data-val="feeling">It is a consuming feeling: butterflies, magnetic attraction, constant daydreaming.</button>
-                  <button class="cath-option-btn" data-val="verb">It is an active verb: a conscious, chosen commitment to nurture their growth.</button>
-                </div>
-              </div>
-
-              <div class="cath-step-card" data-q="1">
-                <h4>02. Focus of Attachment</h4>
-                <div class="cath-options">
-                  <button class="cath-option-btn" data-val="self">Focus is how they make me feel: I borrow their validation or peace to regulate mine.</button>
-                  <button class="cath-option-btn" data-val="them">Focus is their reality: knowing who they are, respecting them separate from me.</button>
-                </div>
-              </div>
-
-              <div class="cath-step-card" data-q="2">
-                <h4>03. Separateness and Freedom</h4>
-                <div class="cath-options">
-                  <button class="cath-option-btn" data-val="grip">I need control: their separateness or freedom feels like a danger of abandonment.</button>
-                  <button class="cath-option-btn" data-val="free">I open my hand: I support their freedom, even their freedom to outgrow or leave me.</button>
-                </div>
-              </div>
-
-            </div>
+          <div class="diagnostic-shell" id="cathexis-shell">
             
-            <div class="cath-result-panel" id="cath-result-panel" style="display:none;">
-              <h3 class="cath-result-title" id="cath-res-title">Diagnosis</h3>
-              <p class="cath-result-text" id="cath-res-text">Feedback details...</p>
+            <div class="diagnostic-form">
+              <div class="cath-slide active" data-q="0">
+                <div class="step-label"><span>01</span> Action vs. Sensation</div>
+                <h3 style="font-size: var(--step-1); font-family: var(--font-serif); margin-bottom: 8px;">How do you define the primary mode of this relationship?</h3>
+                <div class="choice-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                  <button class="choice-btn cath-option-btn" data-val="feeling">
+                    <span class="choice-title">It is a consuming feeling</span>
+                    <span class="choice-detail">butterflies, magnetic attraction, constant daydreaming.</span>
+                  </button>
+                  <button class="choice-btn cath-option-btn" data-val="verb">
+                    <span class="choice-title">It is an active verb</span>
+                    <span class="choice-detail">a conscious, chosen commitment to nurture their growth.</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cath-slide" data-q="1" style="display:none;">
+                <div class="step-label"><span>02</span> Focus of Attachment</div>
+                <h3 style="font-size: var(--step-1); font-family: var(--font-serif); margin-bottom: 8px;">What is the center of gravity in your thoughts about them?</h3>
+                <div class="choice-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                  <button class="choice-btn cath-option-btn" data-val="self">
+                    <span class="choice-title">Focus is how they make me feel</span>
+                    <span class="choice-detail">I borrow their validation or peace to regulate mine.</span>
+                  </button>
+                  <button class="choice-btn cath-option-btn" data-val="them">
+                    <span class="choice-title">Focus is their reality</span>
+                    <span class="choice-detail">knowing who they are, respecting them separate from me.</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cath-slide" data-q="2" style="display:none;">
+                <div class="step-label"><span>03</span> Separateness and Freedom</div>
+                <h3 style="font-size: var(--step-1); font-family: var(--font-serif); margin-bottom: 8px;">How do you experience their independence?</h3>
+                <div class="choice-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                  <button class="choice-btn cath-option-btn" data-val="grip">
+                    <span class="choice-title">I need control</span>
+                    <span class="choice-detail">their separateness or freedom feels like a danger of abandonment.</span>
+                  </button>
+                  <button class="choice-btn cath-option-btn" data-val="free">
+                    <span class="choice-title">I open my hand</span>
+                    <span class="choice-detail">I support their freedom, even their freedom to outgrow or leave me.</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="diag-wizard-nav" style="margin-top: 24px;">
+                <button class="btn" id="cath-btn-prev" disabled>Back</button>
+                <div class="diag-progress-dots">
+                  <span class="diag-dot active" data-q="0"></span>
+                  <span class="diag-dot" data-q="1"></span>
+                  <span class="diag-dot" data-q="2"></span>
+                </div>
+                <button class="btn primary" id="cath-btn-next" disabled>Next</button>
+              </div>
             </div>
+
+            <div class="diag-result">
+              <div class="result-empty" id="cath-result-empty">
+                <p>Complete the questions on the left to evaluate your relational posture.</p>
+              </div>
+              
+              <div class="cath-result-panel" id="cath-result-panel" style="display:none; flex-direction:column; gap:20px; height:100%;">
+                <div>
+                  <h3 class="cath-result-title" id="cath-res-title" style="font-family: var(--font-serif); font-size: var(--step-2); margin-bottom: 8px;">Diagnosis</h3>
+                  <div class="result-sub">Relational Alignment Feedback</div>
+                </div>
+                
+                <p class="cath-result-text" id="cath-res-text" style="font-size: var(--step--1); color: var(--text-muted); line-height: 1.6;"></p>
+                
+                <div class="diag-result-actions" style="margin-top: auto;">
+                  <button class="btn gold" id="cath-btn-send-workbook" style="display: none;">Send to Workbook</button>
+                  <button class="btn" id="cath-btn-reset">Reset Test</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -1040,7 +1096,10 @@
             </div>
             
             <div class="quick-output-wrap">
-              <div class="text-output-box" id="blueprint-output-text" aria-live="polite">Generating blueprint...</div>
+              <div class="blueprint-paper" id="blueprint-paper-container">
+                <div class="blueprint-stamp">RESTORE PLAN</div>
+                <div id="blueprint-output-text" aria-live="polite" style="white-space: pre-wrap; font-size: var(--step--1); line-height: 1.6; margin-top: 10px;">Generating blueprint...</div>
+              </div>
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                 <button class="btn primary" id="btn-arch-copy">📋 Copy to Clipboard</button>
                 <button class="btn gold" id="btn-arch-download">💾 Download Text File</button>
